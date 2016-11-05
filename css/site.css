@@ -67,6 +67,10 @@ body {
     font-size: 28px;
 }
 
+.donation-message-area {
+    background-color: rgba(128, 128, 128, 128);
+}
+
 #donation .amount, #donation .donor {
     color: rgb(93, 193, 229);
 }

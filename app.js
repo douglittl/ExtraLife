@@ -7,6 +7,12 @@ var TWITCH_CHANNEL = 'knownworldunited';
 
 var app = angular.module('app', ['ngFx', 'ngAnimate']);
 
+app.config(['$httpProvider', function($httpProvider) {
+        $httpProvider.defaults.useXDomain = true;
+        delete $httpProvider.defaults.headers.common['X-Requested-With'];
+    }
+]);
+
 app.controller('OverlayCtrl', function ($scope, $location, $interval, extraLife, clock) {
 	
 	$scope.debug = $location.search().debug || false;		
@@ -34,17 +40,20 @@ app.controller('OverlayCtrl', function ($scope, $location, $interval, extraLife,
 	}
 });
 
-app.controller('DashboardCtrl', function ($scope, $location, $interval, extraLife, clock) {
+app.controller('DashboardCtrl', function ($scope, $location, $interval, extraLife, clock, twitch) {
 	
 	var refreshInterval = $location.search().refresh || 60;
 	
 	$scope.extraLife = extraLife;
+	$scope.twitch = twitch;
 	$scope.clock = clock;	
 
 	extraLife.refresh();
+	twitch.refresh();
 	
 	var refresh = $interval(function(){
 		extraLife.refresh();
+		twitch.refresh();
 	}, refreshInterval * 1000);
 	
 	$scope.$on('$destroy', function() {
@@ -82,6 +91,44 @@ app.factory('clock', function ($location, $interval) {
 	return clock;
 });
 
+app.factory('twitch', function ($http, $q, $location, $timeout, $sce) {
+
+	var clientId = "bf57d3i9qagf8qci1l401mi2a3rol26";
+	var channel = $location.search().twitch || TWITCH_CHANNEL;
+
+	var twitch = {
+		chatUrl: $sce.trustAsResourceUrl("https://www.twitch.tv/" + channel + "/chat"),
+		viewers: 0,
+		mods: [],
+		chatters: [],
+		refresh: function() {
+			return $q.all([
+				refreshViewers(), 
+				refreshChatters()
+			]);
+		}
+	};
+
+	return twitch;
+
+	function refreshViewers() {
+		return $http.get(
+			'https://api.twitch.tv/kraken/streams/'+channel, 
+			{headers: {'Client-ID': clientId}}
+		).then(function(response) {
+			twitch.viewers = response.data.stream.viewers;
+		});
+	}
+
+	function refreshChatters() {
+		return $http.jsonp('https://tmi.twitch.tv/group/user/'+channel+'/chatters?callback=JSON_CALLBACK')
+		.then(function(response) {
+			twitch.mods = response.data.data.chatters.moderators;
+			twitch.chatters = response.data.data.chatters.viewers;
+		});
+	}
+});
+
 app.factory('extraLife', function ($http, $q, $location, $timeout, $sce) {
 	
 	var teamId = $location.search().teamId || TEAM_ID;
@@ -97,7 +144,6 @@ app.factory('extraLife', function ($http, $q, $location, $timeout, $sce) {
 		roster: null,
 		donations: null,
 		donation: null,
-		twitch: $sce.trustAsResourceUrl("https://www.twitch.tv/" + twitchChannel + "/chat"),
 		
 		refresh: function() {
 			var promise;

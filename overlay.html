@@ -31,13 +31,15 @@
     
 	<div id="donation" class="fx-zoom-up" ng-if="extraLife.donation">
         <img src="controller_blue-sm-v3.png">
-        <div class="heading">Extra Life Donation!</div>
-        <div>
-            <span class="donor">{{extraLife.donation.donorName || 'Someone'}}</span>
-            <span class="heading">donated</span>
-            <span class="amount">{{extraLife.donation.donationAmount | currency}}</span>            
+        <div class="donation-message-area">
+            <div class="heading">Extra Life Donation!</div>
+            <div>
+                <span class="donor">{{extraLife.donation.donorName || 'Someone'}}</span>
+                <span class="heading">donated</span>
+                <span class="amount">{{extraLife.donation.donationAmount | currency}}</span>            
+            </div>
+            <div class="message" ng=if="extraLife.donation.message">{{extraLife.donation.message}}</div>
         </div>
-        <div class="message" ng=if="extraLife.donation.message">{{extraLife.donation.message}}</div>
     </div>
 
     <div id="clock">
