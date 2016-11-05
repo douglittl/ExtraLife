@@ -97,10 +97,13 @@ app.factory('twitch', function ($http, $q, $location, $timeout, $sce) {
 	var channel = $location.search().twitch || TWITCH_CHANNEL;
 
 	var twitch = {
-		chatUrl: $sce.trustAsResourceUrl("https://www.twitch.tv/" + channel + "/chat"),
 		viewers: 0,
-		mods: [],
-		chatters: [],
+		chat: {
+			url: $sce.trustAsResourceUrl("https://www.twitch.tv/" + channel + "/chat"),
+			chatters: 0,
+			mods: [],
+			viewers: []
+		},
 		refresh: function() {
 			return $q.all([
 				refreshViewers(), 
@@ -123,8 +126,9 @@ app.factory('twitch', function ($http, $q, $location, $timeout, $sce) {
 	function refreshChatters() {
 		return $http.jsonp('https://tmi.twitch.tv/group/user/'+channel+'/chatters?callback=JSON_CALLBACK')
 		.then(function(response) {
-			twitch.mods = response.data.data.chatters.moderators;
-			twitch.chatters = response.data.data.chatters.viewers;
+			twitch.chat.chatters = response.data.data.chatter_count;
+			twitch.chat.mods = response.data.data.chatters.moderators;
+			twitch.chat.viewers = response.data.data.chatters.viewers;
 		});
 	}
 });

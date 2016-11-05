@@ -53,17 +53,17 @@
           <iframe frameborder="0" 
                   scrolling="no" 
                   id="chat_embed" 
-                  ng-src="{{twitch.chatUrl}}"
+                  ng-src="{{twitch.chat.url}}"
                   width="350"
                   height="500">
           </iframe>
           <div class="panel panel-default" style="width:350px">
-            <div class="panel-heading">Chatters</div>
+            <div class="panel-heading">Chatters <span class="label label-info" style="font-size:1.2em">{{twitch.chat.chatters}}</span></div>
             <ul class="list-group">
-              <li class="list-group-item" ng-repeat="chatter in twitch.chatters">{{chatter}}</li>
-              <li class="list-group-item" ng-repeat="chatter in twitch.mods">
+              <li class="list-group-item" ng-repeat="chatter in twitch.chat.viewers">{{chatter}}</li>
+              <li class="list-group-item" ng-repeat="chatter in twitch.chat.mods">
                 <span class="label label-danger">MOD</span> {{chatter}}
-                </li>
+              </li>
             </ul>
           </div>        
         </div>
