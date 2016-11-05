@@ -4,6 +4,7 @@
 }
 
 .clock {
+    text-align: right;
     font-size: 52px;
     font-family: digital, monospace;
 }

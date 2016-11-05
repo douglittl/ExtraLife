@@ -13,48 +13,45 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-9">
-          <div>Goal: {{extraLife.team.totalRaisedAmount | currency}} / {{extraLife.team.fundraisingGoal | currency}}</div>
-          <div class="progress">
-            <div class="progress-bar" role="progressbar" aria-valuenow="{{extraLife.team.goalPercent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{extraLife.team.goalPercent}}%;">
-              <span class="sr-only">{{extraLife.team.goalPercent}}% Complete</span>
+          <div class="row">
+            <div class="col-sm-6">
+              <div style="font-size:2.5em;margin-top:5px">{{extraLife.team.totalRaisedAmount | currency}} / {{extraLife.team.fundraisingGoal | currency}} ({{extraLife.team.goalPercent}}%)</div>
+            </div>
+            <div class="col-sm-6">
+              <div class="clock">
+                {{clock.time}}
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-sm-3">
-          <div class="clock">
-            {{clock.time}}
+          <div class="row">
+            <table class="table table-striped" style="font-size:1.2em">
+              <thead>
+                <tr>
+                  <th style="min-width:100px">Date</th>
+                  <th style="min-width:50px">Amount</th>
+                  <th style="min-width:150px">Donor</th>
+                  <th style="min-width:150px">Player</th>
+                  <th>Message</th>
+                </tr>   
+              </thead>     
+              <tbody>
+                <tr ng-repeat="donation in extraLife.donations">
+                  <td>{{donation.createdOn | date}}<br>{{donation.createdOn | time}}</td>
+                  <td>{{donation.donationAmount | currency}}</td>
+                  <td>{{donation.donorName}}</td>
+                  <td>{{donation.participant}}</td>
+                  <td>{{donation.message}}</td>
+                </tr>   
+              </tbody>
+            </table>
           </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-9">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Amount</th>
-                <th>Donor</th>
-                <th>Player</th>
-                <th>Message</th>
-              </tr>   
-            </thead>     
-            <tbody>
-              <tr ng-repeat="donation in extraLife.donations">
-                <td>{{donation.createdOn}}</td>
-                <td>{{donation.donationAmount | currency}}</td>
-                <td>{{donation.donorName}}</td>
-                <td>{{donation.participant}}</td>
-                <td>{{donation.message}}</td>
-              </tr>   
-            </tbody>
-          </table>
         </div>
         <div class="col-sm-3">
           <iframe frameborder="0" 
                   scrolling="no" 
                   id="chat_embed" 
                   ng-src="{{extraLife.twitch}}"
-                  height="600">
+                  height="800">
           </iframe>        
         </div>
       </div>

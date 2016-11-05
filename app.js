@@ -194,9 +194,20 @@ app.factory('extraLife', function ($http, $q, $location, $timeout, $sce) {
 	return extraLife;
 });
 
-
-angular.module('app').filter('currency', ['$filter', function ($filter) {
+app.filter('currency', ['$filter', function ($filter) {
 	return function(input) {
 		return numeral(input).format('$0,0[.]00');  
+	};
+}]);
+
+app.filter('time', ['$filter', function ($filter) {
+	return function(input) {
+		return moment(input).format('LT');  
+	};
+}]);
+
+app.filter('date', ['$filter', function ($filter) {
+	return function(input) {
+		return moment(input).format('MMM D');  
 	};
 }]);
