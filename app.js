@@ -156,20 +156,20 @@ app.factory('extraLife', function ($http, $q, $location, $timeout, $sce) {
 	}
 	
 	function updateTeam() {
-		return $http.get('http://www.extra-life.org/index.cfm?fuseaction=donordrive.team&teamID='+teamId+'&format=json').then(function(response) {
+		return $http.get('https://www.extra-life.org/index.cfm?fuseaction=donordrive.team&teamID='+teamId+'&format=json').then(function(response) {
 			response.data.goalPercent = Math.min(Math.max(response.data.totalRaisedAmount * 100 / response.data.fundraisingGoal, 0), 100);
 			extraLife.team = response.data;
 		});
 	}
 	
 	function updateRoster() {
-		return $http.get('http://www.extra-life.org/index.cfm?fuseaction=donordrive.teamParticipants&teamID='+teamId+'&format=json').then(function(response){
+		return $http.get('https://www.extra-life.org/index.cfm?fuseaction=donordrive.teamParticipants&teamID='+teamId+'&format=json').then(function(response){
 			extraLife.roster = response.data;
 		});
 	}
 
 	function getParticipantDonations(participant) {
-		return $http.get('http://www.extra-life.org/index.cfm?fuseaction=donorDrive.participantDonations&participantID='+participant.participantID+'&format=json').then(function(response){
+		return $http.get('https://www.extra-life.org/index.cfm?fuseaction=donorDrive.participantDonations&participantID='+participant.participantID+'&format=json').then(function(response){
 			angular.forEach(response.data, function(d){
 				d.createdOn = moment(d.createdOn).format('YYYY-MM-DD HH:mm:ss');
 				d.participant = participant.displayName;
