@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="app">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/site.css">
+</head>
+<body ng-controller="OverlayCtrl">
+    <img ng-if="debug" src="graphics/overlay.jpg">
+    <button id="donate-button" ng-if="debug" ng-click="donate()">Donate</button>
+
+	<div id="goal">
+        <div class="goal heading">Goal: {{extraLife.team.fundraisingGoal | currency}}</div>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="{{extraLife.team.goalPercent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{extraLife.team.goalPercent}}%;">
+                <span class="sr-only">{{extraLife.team.goalPercent}}% Complete</span>
+            </div>
+        </div>
+        <div class="raised">{{extraLife.team.totalRaisedAmount | currency}} Raised</div>
+    </div>
+    
+	<div id="donations">
+        <div class="heading">Recent Donations</div>
+        <div ng-repeat="donation in extraLife.donations | limitTo: count">
+            {{donation.donationAmount | currency}} - {{donation.donorName || 'Anonymous'}}
+        </div>
+    </div>
+    
+	<div id="donation" class="fx-zoom-up" ng-if="extraLife.donation">
+        <img src="controller_blue-sm-v3.png">
+        <div class="heading">Extra Life Donation!</div>
+        <div>
+            <span class="donor">{{extraLife.donation.donorName || 'Someone'}}</span>
+            <span class="heading">donated</span>
+            <span class="amount">{{extraLife.donation.donationAmount | currency}}</span>            
+        </div>
+        <div class="message" ng=if="extraLife.donation.message">{{extraLife.donation.message}}</div>
+    </div>
+
+    <div id="clock">
+        <div class="heading">Hours Played</div>
+        <div class="clock">{{clock.time}}</div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/1.5.3/numeral.min.js"></script>   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.16.1/TweenMax.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.10/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.10/angular-animate.min.js"></script>
+    <script src="https://dl.dropboxusercontent.com/u/35406768/ngFx.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

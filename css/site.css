@@ -1,0 +1,116 @@
+@font-face {
+    font-family: 'furore';
+    src: url('Furore-webfont.eot');
+    src: url('Furore-webfont.eot?#iefix') format('embedded-opentype'),
+         url('Furore-webfont.woff') format('woff'),
+         url('Furore-webfont.ttf') format('truetype'),
+         url('Furore-webfont.svg#furoreregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+	font-family: 'digital';
+	src: url('DigitalDismay.otf');	
+}
+
+body { 
+    background-color: transparent;
+	font-family: furore, sans-serif;
+	font-size: 16px;
+	color: white;
+    text-shadow: rgb(0, 0, 0) 1px 1px 1px;  
+    position: relative;
+}
+
+.heading {
+    color: rgb(93, 193, 229);
+    font-size: 20px;  
+    text-shadow: rgb(0, 0, 0) 1px 1px 1px;  
+}
+
+#goal, #donations, #donation, #clock {
+    position: absolute;
+    text-align: center;
+}
+
+#goal {
+}
+
+.goal, .raised {
+}
+
+.goal {
+}
+
+.raised {
+    text-shadow: rgb(0, 0, 0) 1px 1px 1px;
+}
+
+.progress {
+    height: 20px;
+    border-radius: 15px;
+    /*background: #1d4c6c;*/
+    margin-bottom: 0;
+}
+
+.progress-bar {
+    background: repeating-linear-gradient(45deg, #31c1e6, #31c1e6 10px, #22b4d9 10px, #22b4d9 20px);
+}
+
+#donations {
+}
+
+#donation {
+    color: #fff;
+    text-shadow: rgb(0, 0, 0) 1px 1px 1px;
+    font-size: 28px;
+}
+
+#donation .amount, #donation .donor {
+    color: rgb(93, 193, 229);
+}
+
+#donation .heading {
+    color: white;
+}
+
+#donation .message {
+    font-size: 16px;
+}
+
+.clock {
+    margin-top: -10px;
+    font-size: 52px;
+    font-family: digital, monospace;
+}
+
+#goal {
+    width: 200px;
+    left: 1040px;
+    top: 30px;
+}
+
+#donations {
+    width: 280px;
+    left: 1000px;
+    top: 150px;
+}
+
+#donation {
+    width: 800px;    
+    left: 130px;
+    top: 250px;
+}
+
+#clock {
+    width: 280px;
+    left: 700px;
+    top: 30px;    
+}
+
+#donate-button {
+    position: absolute;
+    left: 0;
+    top: 0;    
+}
