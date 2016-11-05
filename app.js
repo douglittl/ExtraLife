@@ -97,7 +97,7 @@ app.factory('extraLife', function ($http, $q, $location, $timeout, $sce) {
 		roster: null,
 		donations: null,
 		donation: null,
-		twitch: $sce.trustAsResourceUrl("http://www.twitch.tv/" + twitchChannel + "/chat"),
+		twitch: $sce.trustAsResourceUrl("https://www.twitch.tv/" + twitchChannel + "/chat"),
 		
 		refresh: function() {
 			var promise;
