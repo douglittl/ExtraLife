@@ -8,11 +8,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/dashboard.css">
   </head>
-  <body ng-controller="DashboardCtrl" style="margin-left:50px">
+  <body ng-controller="DashboardCtrl" style="margin-left:50px;font-size:0.7em">
 
     <div class="container-fluid">
       <div class="row">
-        <div class="col-sm-9">
+        <div class="col-sm-8">
           <div class="row">
             <div class="col-sm-6">
               <div style="font-size:2.5em;margin-top:5px">{{extraLife.team.totalRaisedAmount | currency}} / {{extraLife.team.fundraisingGoal | currency}} ({{extraLife.team.goalPercent}}%)</div>
@@ -27,13 +27,13 @@
             </div>
           </div>
           <div class="row">
-            <table class="table table-striped" style="font-size:1.2em">
+            <table class="table table-striped" style="font-size:1.5em">
               <thead>
                 <tr>
-                  <th style="min-width:100px">Date</th>
-                  <th style="min-width:50px">Amount</th>
-                  <th style="min-width:150px">Donor</th>
-                  <th style="min-width:150px">Player</th>
+                  <th style="min-width:60px">Date</th>
+                  <th style="min-width:25px">Amount</th>
+                  <th style="min-width:100px">Donor</th>
+                  <th style="min-width:100px">Player</th>
                   <th>Message</th>
                 </tr>   
               </thead>     
@@ -49,18 +49,22 @@
             </table>
           </div>
         </div>
-        <div class="col-sm-3">
-          <iframe frameborder="0" 
-                  scrolling="no" 
-                  id="chat_embed" 
-                  ng-src="{{twitch.chat.url}}"
-                  width="350"
-                  height="500">
-          </iframe>
-          <div class="panel panel-default" style="width:350px">
-            <div class="panel-heading" style="font-size:1.2em">Chatters <span class="label label-info">{{twitch.chat.chatters}}</span></div>
+        <div class="col-sm-4">
+          <div style="margin-top:-40px">
+            <iframe frameborder="0"
+                    scrolling="no" 
+                    id="chat_embed" 
+                    ng-src="{{twitch.chat.url}}"
+                    width="250"
+                    height="500">
+            </iframe>
+          </div>
+          <div class="panel panel-default" style="width:250px;font-size:1.5em;margin-top:-150px">
+            <div class="panel-heading">Chatters <span class="label label-info">{{twitch.chat.chatters}}</span></div>
             <ul class="list-group">
-              <li class="list-group-item" ng-repeat="chatter in twitch.chat.viewers">{{chatter}}</li>
+              <li class="list-group-item" ng-repeat="chatter in twitch.chat.viewers">
+                <span class="label label-success">Viewer</span> {{chatter}}
+              </li>
               <li class="list-group-item" ng-repeat="chatter in twitch.chat.mods">
                 <span class="label label-danger">MOD</span> {{chatter}}
               </li>
