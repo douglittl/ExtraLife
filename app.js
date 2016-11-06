@@ -76,9 +76,10 @@ app.factory('clock', function ($location, $interval) {
 	$interval(function(){
 		var now = moment();
 		var diff = moment().diff(start);
+		var hours = parseInt(diff / 3600000);
 		var dur = moment.duration(diff);
 		var sign = diff < 0 ? '-' : '';
-		clock.time = sign + pad(dur.hours(),2) + ':' + pad(dur.minutes(),2) + ':' + pad(dur.seconds(),2);
+		clock.time = sign + pad(hours,2) + ':' + pad(dur.minutes(),2) + ':' + pad(dur.seconds(),2);
 	}, 1000);
 
 	function pad(num, size) {
